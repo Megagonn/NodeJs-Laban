@@ -16,6 +16,7 @@
     "express": "^4.17.3",
     "formidable": "^2.0.1",
     "fs": "^0.0.1-security",
+    "mongoose": "^6.2.9",
     "nodemon": "^2.0.15"
   }
 }
