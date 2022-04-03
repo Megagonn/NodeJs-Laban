@@ -3,9 +3,10 @@ const productSchema = mongoose.Schema({
     name:String,
     price:String,
     category:String,
-    discount:String,
-    new:String,
-    picturePath:String,
+    discount:Boolean,
+    new:Boolean,
+    picture:String,
+    pictureUrl:String,
     description:String,
     quantity:Number,
 })

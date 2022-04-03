@@ -64,33 +64,27 @@ router.get('/dashboard', (req,res)=>{
 
 router.post('/dashboard', (req,res)=>{
     const form = new formidable.IncomingForm();
-    form.parse(req, (err, fields, files)=>{
-        console.log(fields);
-        // console.log(files);
-        // res.send('success')
+    form.parse(req, (err, fields)=>{
         if (err) {
             console.log(err);
             res.send('error');
         } else {
-            
-            // let picturePath = files.picture.filepath;
-            // let imgName = files.picture.originalFilename;
-            // console.log(imgName);
-            let mongoData = {...fields}
-            console.log(mongoData);
-            let mongoForm = new productModel(mongoData);
-            mongoForm.save((err)=>{
+            var pictureUrl;
+            cloudinary.v2.uploader.upload(fields.picturePath,(err, result)=>{
                 if (err) {
                     console.log(err);
-                    res.send("error");
-                }else{
-                    cloudinary.v2.uploader.upload(fields.picturePath,(err, result)=>{
+                    res.send('error');
+                } else{
+                    console.log(result);
+                    pictureUrl = result.secure_url;
+                    let mongoData = {...fields, pictureUrl}
+                    let mongoForm = new productModel(mongoData);
+                    mongoForm.save((err)=>{
                         if (err) {
                             console.log(err);
-                            res.send('error')
-                        } else{
-                            console.log(result);
-                            res.send('success');
+                            res.send("error");
+                        }else{
+                            res.send('success')
                         }
                     })
                 }
