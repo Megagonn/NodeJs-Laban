@@ -93,6 +93,17 @@ router.post('/dashboard', (req,res)=>{
     })
 })
 
-
+router.get('/products', (req, res)=>{
+    console.log(`i got this request`);
+    productModel.find((err, result)=>{
+        if (err) {
+            console.log(err);
+            res.send('error')
+        } else {
+            console.log(result);
+            res.send(result)
+        }
+    })
+})
 
 module.exports = router;
