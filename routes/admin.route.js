@@ -58,19 +58,25 @@ router.post('/signin', (req, res)=>{
 
 })
 
+router.get('/dashboard', (req,res)=>{
+    res.send('success')
+})
 
 router.post('/dashboard', (req,res)=>{
     const form = new formidable.IncomingForm();
     form.parse(req, (err, fields, files)=>{
         console.log(fields);
-        console.log(files);
+        // console.log(files);
+        // res.send('success')
         if (err) {
             console.log(err);
             res.send('error');
         } else {
-            let picturePath = files.picture.filepath;
-            let imgName = files.picture.originalFilename;
-            let mongoData = {...fields, picturePath}
+            
+            // let picturePath = files.picture.filepath;
+            // let imgName = files.picture.originalFilename;
+            // console.log(imgName);
+            let mongoData = {...fields}
             console.log(mongoData);
             let mongoForm = new productModel(mongoData);
             mongoForm.save((err)=>{
@@ -78,9 +84,7 @@ router.post('/dashboard', (req,res)=>{
                     console.log(err);
                     res.send("error");
                 }else{
-                    res.send("success");
-
-                    cloudinary.v2.uploader.upload(picturePath,(err, result)=>{
+                    cloudinary.v2.uploader.upload(fields.picturePath,(err, result)=>{
                         if (err) {
                             console.log(err);
                             res.send('error')
