@@ -4,7 +4,8 @@ const signupSchema = mongoose.Schema({
    fname:String, 
    lname:String,
    email:String,
-   pword:String
+   pword:String,
+   phone:String,
 })
 
 const signupModel = mongoose.model('signup_tb', signupSchema);
