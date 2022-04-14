@@ -37,9 +37,9 @@ router.post('/signin', (req, res)=>{
     // let {useremail, pword} = req.body;
     const formi = new formidable.IncomingForm();
     formi.parse(req, (err, fields, files)=>{
-        // console.log(fields);
+        console.log(fields);
         // let {useremail, pword} = fields;
-        signupModel.find({email:fields.email}, (err, result)=>{
+        signupModel.find({email:fields.useremail}, (err, result)=>{
             if (err) {
                 console.log(err);
                 res.send('Sign in not successful')
@@ -58,9 +58,9 @@ router.post('/signin', (req, res)=>{
 
 })
 
-router.get('/dashboard', (req,res)=>{
-    res.send('success')
-})
+// router.get('/dashboard', (req,res)=>{
+//     res.send('success')
+// })
 
 router.post('/dashboard', (req,res)=>{
     const form = new formidable.IncomingForm();
@@ -94,13 +94,12 @@ router.post('/dashboard', (req,res)=>{
 })
 
 router.get('/products', (req, res)=>{
-    console.log(`i got this request`);
     productModel.find((err, result)=>{
         if (err) {
             console.log(err);
             res.send('error')
         } else {
-            console.log(result);
+            // console.log(result);
             res.send(result)
         }
     })
