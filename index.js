@@ -19,11 +19,11 @@ app.use('/admin', adminRouter);
 app.use('/user', userRouter);
 
 /// .env
-const port = process.env.port;
-const url = process.env.url;
-const cloudname = process.env.cloudname;
-const apikey = process.env.apikey;
-const apisecret = process.env.apisecret;
+const PORT = process.env.PORT;
+const url = process.env.URL;
+const cloudname = process.env.CLOUDNAME;
+const apikey = process.env.APIKEY;
+const apisecret = process.env.APISECRET;
 
 ///cloudinary config
 cloudinary.config({ 
@@ -44,6 +44,6 @@ app.get('/', (req, res)=>{
     res.send(__dirname+"./index.html");
 })
 
-app.listen(port, ()=>{
-    console.log(`listening at port ${port}`);
+app.listen(PORT, ()=>{
+    console.log(`listening at port ${PORT}`);
 })
