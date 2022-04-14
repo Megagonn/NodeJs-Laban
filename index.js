@@ -2,23 +2,23 @@ const express = require('express');
 // const fs = require('fs');
 // const ejs = require('ejs');
 const cors = require('cors');
-const formidable = require('formidable');
+// const formidable = require('formidable');
 const cloudinary = require('cloudinary');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 // const signupModel = require('./models/signup.model');
 
-require('dotenv').config();
 const app = express();
-const adminRouter = require('./routes/admin.route')
-const userRouter = require('./routes/user.route')
 
 ///middlewares
 app.use(cors());
+const adminRouter = require('./routes/admin.route')
+const userRouter = require('./routes/user.route')
 app.use('/admin', adminRouter);
 app.use('/user', userRouter);
 
 /// .env
+require('dotenv').config();
 const PORT = process.env.PORT;
 const url = process.env.URL;
 const cloudname = process.env.CLOUDNAME;
