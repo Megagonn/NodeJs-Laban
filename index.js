@@ -40,6 +40,9 @@ mongoose.connect(url, (err)=>{
     console.log("Mongoose connected");
 })
 
+app.get('/', (req, res)=>{
+    res.send(__dirname+"./index.html");
+})
 
 app.listen(port, ()=>{
     console.log(`listening at port ${port}`);
