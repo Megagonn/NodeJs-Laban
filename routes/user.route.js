@@ -13,17 +13,17 @@ router.post('/signup', (req, res)=>{
         } else {
 
         
-            var json = JSON.parse(fields);
+            var json = fields;
             if (json) {
                 console.log(json);
                 userModel.find({email:json.email}, (err,result)=>{
                     if (result.length<=0) {
-                        let form = new userModel(json);
-                        form.save((err)=>{
+                        let formi = new userModel(json);
+                        formi.save((err)=>{
                             if (err) {
                                 res.send("error");
                             } else{
-                                res.send('success');
+                                res.send(result);
                             }
                         })
                     }

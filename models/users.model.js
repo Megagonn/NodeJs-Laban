@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
     lastName:String,
     email:String,
     phone:String,
-    password:String,
+    password:String,    
 })
 // let saltRound = '10';
 // userSchema.pre('save', (next)=>{
