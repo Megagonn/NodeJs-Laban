@@ -63,6 +63,7 @@ router.post('/signin', (req, res)=>{
 // })
 
 router.post('/dashboard', (req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*")
     const form = new formidable.IncomingForm();
     form.parse(req, (err, fields)=>{
         if (err) {
