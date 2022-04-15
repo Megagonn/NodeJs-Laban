@@ -23,10 +23,12 @@ router.post('/signup', (req, res)=>{
                             if (err) {
                                 res.send({message:"error"});
                             } else{
-                                res.send(json);
+                                res.send(result);
                             }
                         })
-                    } else{
+                    } else if(err){
+                        res.send({message:err})
+                    } else {
                         res.send({message:"email already exist!"});
                     }
                 })
