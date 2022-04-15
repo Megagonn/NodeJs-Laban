@@ -21,17 +21,17 @@ router.post('/signup', (req, res)=>{
                         let formi = new userModel(json);
                         formi.save((err)=>{
                             if (err) {
-                                res.send("error");
+                                res.send({message:"error"});
                             } else{
                                 res.send(json);
                             }
                         })
                     } else{
-                        res.send("Email already exist!");
+                        res.send({message:"email already exist!"});
                     }
                 })
             } else{
-                res.send("error");
+                res.send({message:"error"});
             }
         }
     })
