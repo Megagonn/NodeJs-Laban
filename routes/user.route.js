@@ -26,6 +26,8 @@ router.post('/signup', (req, res)=>{
                                 res.send(json);
                             }
                         })
+                    } else{
+                        res.send("Email already exist!");
                     }
                 })
             } else{
