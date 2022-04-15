@@ -1,17 +1,12 @@
 const express = require('express');
-// const fs = require('fs');
-// const ejs = require('ejs');
 const cors = require('cors');
-// const formidable = require('formidable');
-const cloudinary = require('cloudinary');
-// const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-// const signupModel = require('./models/signup.model');
-
 const app = express();
+app.use(cors());
+const cloudinary = require('cloudinary');
+const mongoose = require('mongoose');
+
 
 ///middlewares
-app.use(cors());
 const adminRouter = require('./routes/admin.route')
 const userRouter = require('./routes/user.route')
 app.use('/admin', adminRouter);
