@@ -23,7 +23,7 @@ router.post('/signup', (req, res)=>{
                             if (err) {
                                 res.send("error");
                             } else{
-                                res.send(result);
+                                res.send(json);
                             }
                         })
                     }
