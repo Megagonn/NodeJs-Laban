@@ -8,21 +8,30 @@ const userModel = require('../models/users.model');
 router.post('/signup', (req, res)=>{
     const form = new formidale.IncomingForm();
     form.parse(req, (err, fields, files)=>{
-        if (fields) {
-            console.log(fields);
-            userModel.find({email:fields.email}, (err,result)=>{
-                if (result.length<=0) {
-                    let form = new userModel(fields);
-                    form.save((err)=>{
-                        if (err) {
-                            res.send("error");
-                        } else{
-                            res.send('success');
-                        }
-                    })
-                }
-            })
-        } 
+        if(err){
+            console.log(err);
+        } else {
+
+        
+            var json = JSON.parse(fields);
+            if (json) {
+                console.log(json);
+                userModel.find({email:json.email}, (err,result)=>{
+                    if (result.length<=0) {
+                        let form = new userModel(json);
+                        form.save((err)=>{
+                            if (err) {
+                                res.send("error");
+                            } else{
+                                res.send('success');
+                            }
+                        })
+                    }
+                })
+            } else{
+                res.send("error");
+            }
+        }
     })
 })
 
