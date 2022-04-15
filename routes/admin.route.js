@@ -62,7 +62,7 @@ router.post('/signin', (req, res)=>{
 //     res.send('success')
 // })
 
-router.post('/dashboard', (req,res)=>{
+router.post('/addproduct', (req,res)=>{
     res.header("Access-Control-Allow-Origin", "*")
     const form = new formidable.IncomingForm();
     form.parse(req, (err, fields)=>{
