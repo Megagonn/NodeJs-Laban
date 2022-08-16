@@ -10,7 +10,7 @@ router.post('/addtocart', (req, res) => {
     // const {email, items} = req.body;
     const form = new formidable.IncomingForm();
     form.parse(req, (error, fields, files) => {
-        if (req.body != null) {
+        if (fields != null) {
             let formData = new cartModel(fields);
             formData.save((err) => {
                 console.log(err);
