@@ -5,8 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <h1>Welcome to Laban</h1>
+
+
+
+    <!-- Testing cart model -->
+
+    <input type="email" name="email" id="email">
+    <input type="submit" value="Submit" id="submit">
+
+
+    <script>
+        // const email = document.getElementById('email');
+        // document.getElementById('submit').addEventListener('click', ()=>{
+        //     alert('i got here...')
+        //     axios.post('https://127.0.0.1/5200/cart/addtocart', {
+        //        'email': email.value,
+        //        items:[12,3,4,6,0]
+        //     }).then((res)=>{
+        //         console.log(res);
+        //     })
+        // })
+        document.getElementById('submit').addEventListener('click', ()=>{
+            alert('i got here...')
+            axios.post('https://127.0.0.1/5200/user/signup', {
+               email: 'email.value',
+               firstName: 'meg',
+               lastName: 'meg',
+               password: 'meg',
+               phone: '02134552',
+
+            }).then((res)=>{
+                console.log(res);
+            }).catch((error)=>{
+                console.log(error);
+            })
+        })
+    </script>
 </body>
 </html>

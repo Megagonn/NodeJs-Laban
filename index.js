@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+// const path = require('path');
 // app.use(cors());
 // app.use(cors({
 //     origin: "*",
@@ -17,10 +18,12 @@ const mongoose = require('mongoose');
 
 
 ///middlewares
-const adminRouter = require('./routes/admin.route')
-const userRouter = require('./routes/user.route')
+const adminRouter = require('./routes/admin.route');
+const userRouter = require('./routes/user.route');
+const cartRouter = require('./routes/cart.route');
 app.use('/admin', adminRouter);
 app.use('/user', userRouter);
+app.use('/cart', cartRouter);
 
 /// .env
 require('dotenv').config();
@@ -46,8 +49,10 @@ mongoose.connect(url, (err)=>{
 })
 
 app.get('/', (req, res)=>{
-    res.send(__dirname+"./index.html");
+    res.sendFile(__dirname+"/index.html");
 })
+
+
 
 app.listen(PORT, ()=>{
     console.log(`listening at port ${PORT}`);
