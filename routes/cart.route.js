@@ -6,6 +6,16 @@ const formidable = require('formidable');
 const cartModel = require('../models/cart.model')
 
 
+
+router.get('/get-cart', (req, res)=>{
+    let form = new formidable.IncomingForm();
+    form.parse(req, (error, fields, files)=>{
+        cartModel.find({email:fields.email}, (err, result)=>{
+            if (err) res.send('error occured, cound not fetch cart');
+            res.send(result);
+        })
+    })
+})
 router.post('/add-to-cart', (req, res) => {
     // const {email, items} = req.body;
     let form = new formidable.IncomingForm();
