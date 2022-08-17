@@ -4,7 +4,10 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const formidable = require('formidable');
 const cartModel = require('../models/cart.model');
-const { json } = require('express');
+// const { json } = require('express');
+const bodyParser = require('body-parser');
+app.use(express.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 
 
@@ -20,11 +23,12 @@ router.get('/get-cart', (req, res)=>{
 })
 router.post('/add-to-cart', (req, res) => {
     // const {email, items} = req.body;
+    console.log(req.body);
     let form = new formidable.IncomingForm();
     form.parse(req, (error, fields, files) => {
         if (fields.email != null || fields.email != '') {
             // let decodedField = JSON.parse(fields);
-            console.log(JSON.parse(fields));
+            // console.log(JSON.parse(fields));
             cartModel.find({email:fields.email},(err,result)=>{
 
                 let product = result.findIndex((item)=> item)
