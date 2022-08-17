@@ -23,31 +23,31 @@ router.get('/get-cart', (req, res)=>{
 })
 router.post('/add-to-cart', (req, res) => {
     // const {email, items} = req.body;
-    console.log(req.body);
-    // let form = new formidable.IncomingForm();
-    // form.parse(req, (error, fields, files) => {
-    //     if (fields.email != null || fields.email != '') {
-    //         // let decodedField = JSON.parse(fields);
-    //         // console.log(JSON.parse(fields));
-    //         cartModel.find({email:fields.email},(err,result)=>{
+    // console.log(req.body);
+    let form = new formidable.IncomingForm();
+    form.parse(req, (error, fields, files) => {
+        if (fields.email != null || fields.email != '') {
+            // let decodedField = JSON.parse(fields);
+            console.log(fields);
+            // cartModel.find({email:fields.email},(err,result)=>{
 
-    //             let product = result.findIndex((item)=> item)
-    //             if (result.length>0) {
-    //                 res.send("Product is already in cart")
-    //             }else{
-    //                 let formData = new cartModel(fields);
-    //                 formData.save((err) => {
-    //                     console.log(err);
-    //                 });
-    //                 res.send('Product added to cart.')
-    //             }
-    //         })
+            //     let product = result.findIndex((item)=> item)
+            //     if (result.length>0) {
+            //         res.send("Product is already in cart")
+            //     }else{
+            //         let formData = new cartModel(fields);
+            //         formData.save((err) => {
+            //             console.log(err);
+            //         });
+            //         res.send('Product added to cart.')
+            //     }
+            // })
             
-    //     } else{
-    //         console.log('Invalid request');
-    //         res.send('Invalid request')
-    //     }
-    // })
+        } else{
+            console.log('Invalid request');
+            res.send('Invalid request')
+        }
+    })
     // console.log([email, items]);
     // res.send("<p>I got your request...Processing...</p>");
 
