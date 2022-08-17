@@ -24,7 +24,7 @@ router.post('/add-to-cart', (req, res) => {
     form.parse(req, (error, fields, files) => {
         if (fields.email != null || fields.email != '') {
             // let decodedField = JSON.parse(fields);
-            console.log(fields);
+            console.log(JSON.parse(fields));
             cartModel.find({email:fields.email},(err,result)=>{
 
                 let product = result.findIndex((item)=> item)
