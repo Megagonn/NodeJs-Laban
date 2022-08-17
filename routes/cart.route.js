@@ -5,9 +5,9 @@ const mongoose = require('mongoose');
 const formidable = require('formidable');
 const cartModel = require('../models/cart.model');
 // const { json } = require('express');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 app.use(express.urlencoded({extended:true}));
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 
 
