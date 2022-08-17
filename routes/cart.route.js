@@ -22,13 +22,13 @@ router.post('/add-to-cart', (req, res) => {
     let form = new formidable.IncomingForm();
     form.parse(req, (error, fields, files) => {
         if (fields.email != null || fields.email != '') {
-            let decodedField = JSON.parse(fields);
-            cartModel.find({email:decodedField.email},(err,result)=>{
+            // let decodedField = JSON.parse(fields);
+            cartModel.find({email:fields.email},(err,result)=>{
                 let product = result.findIndex((item)=> item)
                 if (result.length>0) {
                     res.send("Product is already in cart")
                 }else{
-                    let formData = new cartModel(decodedField);
+                    let formData = new cartModel(fields);
                     formData.save((err) => {
                         console.log(err);
                     });
