@@ -13,6 +13,7 @@ router.get('/get-cart', (req, res)=>{
     form.parse(req, (error, fields, files)=>{
         cartModel.find({email:fields.email}, (err, result)=>{
             if (err) res.send('error occured, cound not fetch cart');
+            console.log(result);
             res.send(result);
         })
     })
@@ -23,7 +24,9 @@ router.post('/add-to-cart', (req, res) => {
     form.parse(req, (error, fields, files) => {
         if (fields.email != null || fields.email != '') {
             // let decodedField = JSON.parse(fields);
+            console.log(fields);
             cartModel.find({email:fields.email},(err,result)=>{
+
                 let product = result.findIndex((item)=> item)
                 if (result.length>0) {
                     res.send("Product is already in cart")
