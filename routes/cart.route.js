@@ -31,8 +31,9 @@ router.post('/add-to-cart', (req, res) => {
             console.log(fields);
             cartModel.find({email:fields.email},(err,result)=>{
 
-                let product = result.findIndex((item)=> item)
-                if (result.length>0) {
+                // let product = result.findIndex((item)=> item)
+                if (result.items.productId==fields.items.productId) {
+                    console.log(result);
                     res.send("Product is already in cart");
                 }else{
                     let formData = new cartModel({email:fields.email, items: [fields.items]});
