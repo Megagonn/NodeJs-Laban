@@ -33,8 +33,10 @@ router.post('/add-to-cart', (req, res) => {
 
                 if (result.length>0) {
                     try {
-                        let productIndex = result.items.findIndex((item)=> item.productId==fields.items.productId);
-                        console.log(productIndex);
+                        // let a = [];
+                        // a.
+                        // let productIndex = result.items.where((item)=> item.productId==fields.items.productId);
+                        console.log(result.items);
                         // console.log(result.items.productId);
                         // console.log(fields.items.productId);
                         // if (result.items.productId==fields.items.productId) {
