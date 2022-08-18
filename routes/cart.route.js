@@ -31,22 +31,25 @@ router.post('/add-to-cart', (req, res) => {
             console.log(fields);
             cartModel.find({email:fields.email},(err,result)=>{
 
-                // let product = result.findIndex((item)=> item)
                 if (result.length>0) {
                     try {
-                        console.log(result.items.productId);
-                    console.log(fields.items.productId);
-                    if (result.items.productId==fields.items.productId) {
-                        console.log(result);
-                        res.send("Product is already in cart");
-                    }else{
-                        let formData = new cartModel({email:fields.email, items: [fields.items]});
-                        formData.save((err) => {
-                            console.log(err);
-                        });
-                        res.send('Product added to cart.')
-                    }
+                        let productIndex = result.items.findIndex((item)=> item.productId==fields.items.productId);
+                        console.log(productIndex);
+                        // console.log(result.items.productId);
+                        // console.log(fields.items.productId);
+                        // if (result.items.productId==fields.items.productId) {
+                        //     console.log(result);
+                        //     res.send("Product is already in cart");
+                        // }else{
+                        //     let formData = new cartModel({email:fields.email, items: [fields.items]});
+                        //     formData.save((err) => {
+                        //         console.log(err);
+                        //     });
+                        //     res.send('Product added to cart.');
+                        // }
+
                     } catch (error) {
+                        console.log(error);
                         res.send(error);
                     }
                 } else {
