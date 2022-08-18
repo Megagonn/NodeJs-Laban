@@ -29,19 +29,19 @@ router.post('/add-to-cart', (req, res) => {
         if (fields.email != null || fields.email != '') {
             // let decodedField = JSON.parse(fields);
             console.log(fields);
-            // cartModel.find({email:fields.email},(err,result)=>{
+            cartModel.find({email:fields.email},(err,result)=>{
 
-            //     let product = result.findIndex((item)=> item)
-            //     if (result.length>0) {
-            //         res.send("Product is already in cart")
-            //     }else{
-            //         let formData = new cartModel(fields);
-            //         formData.save((err) => {
-            //             console.log(err);
-            //         });
-            //         res.send('Product added to cart.')
-            //     }
-            // })
+                let product = result.findIndex((item)=> item)
+                if (result.length>0) {
+                    res.send("Product is already in cart");
+                }else{
+                    let formData = new cartModel({email:fields.email, items: [fields.items]});
+                    formData.save((err) => {
+                        console.log(err);
+                    });
+                    res.send('Product added to cart.')
+                }
+            })
             
         } else{
             console.log('Invalid request');
