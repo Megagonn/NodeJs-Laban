@@ -32,15 +32,23 @@ router.post('/add-to-cart', (req, res) => {
             cartModel.find({email:fields.email},(err,result)=>{
 
                 // let product = result.findIndex((item)=> item)
-                if (result.items.productId==fields.items.productId) {
-                    console.log(result);
-                    res.send("Product is already in cart");
-                }else{
+                if (result.length>0) {
+                    if (result.items.productId==fields.items.productId) {
+                        console.log(result);
+                        res.send("Product is already in cart");
+                    }else{
+                        let formData = new cartModel({email:fields.email, items: [fields.items]});
+                        formData.save((err) => {
+                            console.log(err);
+                        });
+                        res.send('Product added to cart.')
+                    }
+                } else {
                     let formData = new cartModel({email:fields.email, items: [fields.items]});
-                    formData.save((err) => {
-                        console.log(err);
-                    });
-                    res.send('Product added to cart.')
+                        formData.save((err) => {
+                            console.log(err);
+                        });
+                        res.send('Product added to cart.')
                 }
             })
             
