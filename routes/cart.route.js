@@ -22,50 +22,52 @@ router.get('/get-cart', (req, res)=>{
     })
 })
 router.post('/add-to-cart', (req, res) => {
-    // const {email, items} = req.body;
-    // console.log(req.body);
     let form = new formidable.IncomingForm();
     form.parse(req, (error, fields, files) => {
         if (fields.email != null || fields.email != '') {
-            // let decodedField = JSON.parse(fields);
-            console.log(fields);
             cartModel.find({email:fields.email},(err,result)=>{
-
+                console.log(result);
                 if (result.length>0) {
-                    try {
-                        // let a = [];
-                        // a.
-                        // let productIndex = result.items.where((item)=> item.productId==fields.items.productId);
-                        console.log(result.items);
-                        // console.log(result.items.productId);
-                        // console.log(fields.items.productId);
-                        // if (result.items.productId==fields.items.productId) {
-                        //     console.log(result);
-                        //     res.send("Product is already in cart");
-                        // }else{
-                        //     let formData = new cartModel({email:fields.email, items: [fields.items]});
-                        //     formData.save((err) => {
-                        //         console.log(err);
-                        //     });
-                        //     res.send('Product added to cart.');
-                        // }
-
-                    } catch (error) {
-                        console.log(error);
-                        res.send(error);
+                        
+                    let data = result[0];
+                    let allItems = data.items;
+                    let a;
+                    for (let i = 0; i < allItems.length; i++) {
+                        const element = allItems[i];
+                        if (element.productId==fields.items.productId) {
+                            a = true;
+                            break;
+                        } else {
+                            a = false;
+                        }
+                    }
+                    if (a) {
+                        console.log("Product is already in cart");
+                            res.send("Product is already in cart");
+                    } else {
+                        let updateCart = [...allItems, fields.items];
+                        cartModel.findOneAndUpdate({email:fields.email}, {$set: {email:fields.email, items: updateCart}}, null, (err)=>{
+                            if (err) {
+                                console.log(err);
+                                return res.send(err);
+                            } 
+                        })
                     }
                 } else {
                     let formData = new cartModel({email:fields.email, items: [fields.items]});
-                        formData.save((err) => {
-                            console.log(err);
-                        });
-                        res.send('Product added to cart.')
+                    formData.save((err) => {
+                        if (err) {
+                            return res.send(err);
+                        }    
+                        return res.send('Product added to cart.')
+                    });
                 }
             })
             
-        } else{
+        } 
+        else{
             console.log('Invalid request');
-            res.send('Invalid request')
+           return res.send('Invalid request')
         }
     })
     // console.log([email, items]);
