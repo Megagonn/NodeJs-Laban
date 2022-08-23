@@ -52,13 +52,13 @@ router.post('/add-to-cart', (req, res) => {
                     }
                     if (a) {
                         console.log("Product is already in cart");
-                            res.send("Product is already in cart");
+                        res.send("Product is already in cart");
                     } else {
                         let updateCart = [...allItems, fields.items];
                         cartModel.findOneAndUpdate({email:fields.email}, {$set: {email:fields.email, items: updateCart}}, null, (err)=>{
                             if (err) {
                                 console.log(err);
-                                return res.send(err);
+                                 res.send(err);
                             } 
                         })
                     }
@@ -66,9 +66,10 @@ router.post('/add-to-cart', (req, res) => {
                     let formData = new cartModel({email:fields.email, items: [fields.items]});
                     formData.save((err) => {
                         if (err) {
-                            return res.send(err);
-                        }    
-                        return res.send('Product added to cart.')
+                            res.send(err);
+                        }else {
+                            res.send('Product added to cart.');
+                        }
                     });
                 }
             })
@@ -177,14 +178,74 @@ router.patch('/decrease-item-count',(req,res)=>{
 
                         }
                     })
-                    // console.log(found);
-                    // res.send(items); 
                 }else {
                     console.log(found);
                     console.log('Invalid request');
                     res.send("Invalid request");
                 }
                 // res.send(found);
+            } else {
+                console.log('Invalid request');
+                res.send("Invalid request");
+            }
+        })
+    })
+})
+
+router.delete("/clear-cart", (req, res)=>{
+    let form = new formidable.IncomingForm();
+    form.parse(req, (err, fields, files)=>{
+        cartModel.find({email: fields.email}, (err, result)=>{
+            if (result.length > 0) {
+                cartModel.findByIdAndDelete(result[0]._id, null, (err)=>{
+                    if (err) {
+                        console.log(err.message);
+                       return res.send('some error occured...');
+                    }else{
+                        console.log("success");
+                        return res.send("success");
+                    }
+                })
+            } else {
+                console.log('Invalid request');
+                res.send("Invalid request");
+            }
+        })
+    })
+})
+
+router.delete('/delete-item', (req, res)=>{
+    let form = new formidable.IncomingForm();
+    form.parse(req, (err, fields)=>{
+        cartModel.find({email:fields.email}, (err, result)=>{
+            if (result.length > 0) {
+                let productId = fields.productId;
+                let remnant;
+                let editIndex;
+                let found;
+                let items = result[0].items;
+                for (let i = 0; i < items.length; i++) {
+                    const element = items[i];
+                    if (element.productId == productId) {
+                        found = true;
+                        editIndex = i;
+                        break;
+                    } else{
+                        found = false;
+                        
+                    }
+                }
+                if (found) {
+                    // let a = [];
+                    // a.splice() 
+                   remnant = items.splice(editIndex, 1);
+                   console.log(remnant);
+                   console.log("success");
+                   res.send("success")
+                } else {
+                    console.log('Invalid request');
+                    res.send("Invalid request");
+                }
             } else {
                 console.log('Invalid request');
                 res.send("Invalid request");
