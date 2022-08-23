@@ -15,9 +15,18 @@ router.get('/get-cart', (req, res)=>{
     let form = new formidable.IncomingForm();
     form.parse(req, (error, fields, files)=>{
         cartModel.find({email:fields.email}, (err, result)=>{
-            if (err) res.send('error occured, cound not fetch cart');
-            console.log(result);
-            res.send(result);
+            if (result.length > 0) {
+                if (err) {
+                   return res.send('error occured, cound not fetch cart');
+                }else{
+                    console.log(result[0].items);
+                    return res.send(result[0].items);
+
+                }
+            } else {
+                console.log('Invalid request');
+                return res.send('Invalid request')
+            }
         })
     })
 })
