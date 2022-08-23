@@ -105,7 +105,7 @@ router.patch('/increase-item-count',(req,res)=>{
                     items[editIndex].count = edited.toString();
                     // console.log(items);
                     newCart = {"email" : result[0],"items": items};
-                    cartModel.findByIdAndUpdate('62fea54387ea4c0d0ad71849', {"email" : result[0].email,"items": items}, null, (err, result)=>{
+                    cartModel.findByIdAndUpdate(uid, {"email" : result[0].email,"items": items}, null, (err, result)=>{
                         if (err) {
                             res.send(err.message)
                         }else{
