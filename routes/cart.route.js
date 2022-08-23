@@ -130,21 +130,56 @@ router.patch('/increase-item-count',(req,res)=>{
     })
 })
 router.patch('/decrease-item-count',(req,res)=>{
+    console.log(".... made a request")
     let form = new formidable.IncomingForm();
     form.parse(req, (error, fields, files)=>{
         cartModel.find({email:fields.email},(error, result)=>{
             let newCart;
-            let items= result[1]
-            let editIndex = items.findIndex((element)=> element.productId == fields.productId
-            );
-            let edited = parseInt(items[editIndex].count)-1;
-            items[editIndex].count = edited;
-            newCart = [result[0], items];
-            cartModel.updateOne({email:fields.email},{$set: {newCart}}, null, (err, result)=>{
-                if (err) throw err;
-                console.log('Cart updated');
-                res.send('success');
-            })
+            // res.send(result.length.toString());
+            let uid = '';
+            if (result.length > 0) {
+                let items= result[0].items;
+                uid = result[0]._id;
+                console.log(uid);
+                let editIndex;
+                let found;
+                for (let i = 0; i < items.length; i++) {
+                    const element = items[i];
+                    if (element.productId == fields.items.productId) {
+                        found = true;
+                        editIndex = i;
+                        break;
+                    } else{
+                        found = false;
+                    }
+                }
+                if (found) {
+                    
+                    let edited = parseInt(items[editIndex].count)-1;
+                    items[editIndex].count = edited.toString();
+                    // console.log(items);
+                    newCart = {"email" : result[0],"items": items};
+                    cartModel.findByIdAndUpdate(uid, {"email" : result[0].email,"items": items}, null, (err, result)=>{
+                        if (err) {
+                            res.send(err.message)
+                        }else{
+                            console.log(result);
+                            res.send("success");
+
+                        }
+                    })
+                    // console.log(found);
+                    // res.send(items); 
+                }else {
+                    console.log(found);
+                    console.log('Invalid request');
+                    res.send("Invalid request");
+                }
+                // res.send(found);
+            } else {
+                console.log('Invalid request');
+                res.send("Invalid request");
+            }
         })
     })
 })
