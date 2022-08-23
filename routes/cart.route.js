@@ -223,6 +223,7 @@ router.delete('/delete-item', (req, res)=>{
                 let remnant;
                 let editIndex;
                 let found;
+                let uid = result[0]._id;
                 let items = result[0].items;
                 for (let i = 0; i < items.length; i++) {
                     const element = items[i];
@@ -239,9 +240,18 @@ router.delete('/delete-item', (req, res)=>{
                     // let a = [];
                     // a.splice() 
                    remnant = items.splice(editIndex, 1);
-                   console.log(remnant);
-                   console.log("success");
-                   res.send("success")
+                   cartModel.findByIdAndUpdate(uid, {"email" : result[0].email,"items": items}, null, (err, result)=>{
+                    if (err) {
+                        res.send(err.message)
+                    }else{
+                        console.log(result);
+                        res.send("success");
+
+                    }
+                })
+                //    console.log(remnant);
+                //    console.log("success");
+                //    res.send("success")
                 } else {
                     console.log('Invalid request');
                     res.send("Invalid request");
