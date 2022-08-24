@@ -11,7 +11,7 @@ const cartModel = require('../models/cart.model');
 
 
 
-router.get('/get-cart', (req, res)=>{
+router.post('/get-cart', (req, res)=>{
     let form = new formidable.IncomingForm();
     form.parse(req, (error, fields, files)=>{
         cartModel.find({email:fields.email}, (err, result)=>{
