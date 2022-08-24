@@ -13,17 +13,19 @@ app.use((req,res, next)=>{
     res.header("Content-type:application/json");
     next();
 });
-const cloudinary = require('cloudinary');
-const mongoose = require('mongoose');
+
+
 
 
 ///middlewares
 const adminRouter = require('./routes/admin.route');
 const userRouter = require('./routes/user.route');
 const cartRouter = require('./routes/cart.route');
+const productRouter = require('./routes/product.route');
 app.use('/admin', adminRouter);
 app.use('/user', userRouter);
 app.use('/cart', cartRouter);
+app.use('/product', productRouter);
 
 /// .env
 require('dotenv').config();
@@ -34,12 +36,14 @@ const apikey = process.env.APIKEY;
 const apisecret = process.env.APISECRET;
 
 ///cloudinary config
+const cloudinary = require('cloudinary');
 cloudinary.config({ 
     cloud_name: cloudname, 
     api_key: apikey, 
     api_secret: apisecret, 
 });
 
+const mongoose = require('mongoose');
 mongoose.connect(url, (err)=>{
     if (err) {
         console.log(err);
