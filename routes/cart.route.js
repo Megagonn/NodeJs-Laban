@@ -58,8 +58,9 @@ router.post('/add-to-cart', (req, res) => {
                         cartModel.findOneAndUpdate({email:fields.email}, {$set: {email:fields.email, items: updateCart}}, null, (err)=>{
                             if (err) {
                                 console.log(err);
-                                 res.send(err);
-                            } 
+                                return res.send(err);
+                            } res.send('Product added to cart.');
+
                         })
                     }
                 } else {
@@ -249,9 +250,6 @@ router.delete('/delete-item', (req, res)=>{
 
                     }
                 })
-                //    console.log(remnant);
-                //    console.log("success");
-                //    res.send("success")
                 } else {
                     console.log('Invalid request');
                     res.send("Invalid request");
