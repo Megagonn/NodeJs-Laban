@@ -18,7 +18,15 @@ router.post('/addproduct', (req,res)=>{
                 } else{
                     console.log(result);
                     pictureUrl = result.secure_url;
-                    let mongoData = {...fields, pictureUrl}
+                    let characters = '1234567890abcdefghijklmnopqrstuvwxyz';
+                    let id ='';
+                    let split = characters.split('');
+                    for (let i = 0; i < 30; i++) {
+                        if (id.length<=30) {
+                            id += split[(Math.random()*35).toFixed()]
+                        }
+                    }
+                    let mongoData = {...fields, productId: id, pictureUrl}
                     let mongoForm = new productModel(mongoData);
                     mongoForm.save((err)=>{
                         if (err) {
