@@ -91,7 +91,8 @@ router.patch('/increase-item-count',(req,res)=>{
     let form = new formidable.IncomingForm();
     form.parse(req, (error, fields, files)=>{
         cartModel.find({email:fields.email},(error, result)=>{
-            let newCart;
+            try {
+                let newCart;
             // res.send(result.length.toString());
             let uid = '';
             if (result.length > 0) {
@@ -136,6 +137,10 @@ router.patch('/increase-item-count',(req,res)=>{
             } else {
                 console.log('Invalid request');
                 res.send("Invalid request");
+            }
+            } catch (error) {
+                console.log(error);
+                res.send(error)
             }
         })
     })
