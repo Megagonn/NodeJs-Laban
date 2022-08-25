@@ -103,7 +103,7 @@ router.patch('/increase-item-count',(req,res)=>{
                 let found;
                 for (let i = 0; i < items.length; i++) {
                     const element = items[i];
-                    if (element.productId == fields.items.productId) {
+                    if (element.productId == fields.productId) {
                         found = true;
                         editIndex = i;
                         break;
@@ -161,7 +161,7 @@ router.patch('/decrease-item-count',(req,res)=>{
                 let found;
                 for (let i = 0; i < items.length; i++) {
                     const element = items[i];
-                    if (element.productId == fields.items.productId) {
+                    if (element.productId == fields.productId) {
                         found = true;
                         editIndex = i;
                         break;
